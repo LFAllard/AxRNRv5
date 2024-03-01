@@ -1,0 +1,1 @@
+export { loadOpenData } from "./openData";

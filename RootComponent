@@ -1,0 +1,27 @@
+// import React, { Component } from "react";
+// import { connect } from "react-redux";
+// import { loadOpenData } from "./redux/store/slices";
+// import BffOoo from "./screens/BffOoo";
+
+// class RootComponent extends Component {
+//   componentDidMount() {
+//     this.props.loadOpenData();
+//   }
+
+//   render() {
+//     return <BffOoo />;
+//   }
+// }
+
+// export default connect(null, { loadOpenData })(RootComponent);
+
+import React, { Component } from "react";
+import BffOoo from "./screens/BffOoo";
+
+class RootComponent extends Component {
+  render() {
+    return <BffOoo />;
+  }
+}
+
+export default RootComponent;
