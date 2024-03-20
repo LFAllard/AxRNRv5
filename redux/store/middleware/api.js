@@ -114,10 +114,15 @@ const api =
 
     try {
       const response = await axios.request({
-        baseURL: "http://localhost/pmapsd/mapp231122/phpfiler", //In a real app probably in a config file!! Bytt fr 1021 till 1122 240110
+        // baseURL: "http://localhost/pmapsd/mapp231122/phpfiler", //In a real app probably in a config file!! Bytt fr 1021 till 1122 240110
+        // baseURL: "http://localhost/pmapsd/mapp240207/phpfiler", //In a real app probably in a config file!! Bytt fr 1021 till 1122 240110
+        baseURL: "http://192.168.1.140/pmapsd/mapp240207/phpfiler", //In a real app probably in a config file!! Bytt fr 1021 till 1122 240110
         url,
         method,
         data,
+        // headers: {
+        //   "Cache-Control": "no-cache",
+        // },
       });
 
       // Check if data exists in the response and destructure lyckadleverans and poolsessorsatta

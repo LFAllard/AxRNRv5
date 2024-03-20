@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+import { useSelector } from "react-redux";
+
 import { StatusBar } from "expo-status-bar";
 
 import {
@@ -36,6 +38,23 @@ import styles from "../komponenter/Stilar";
 // import styles from "../komponenter/Stilar";
 
 function BffOoo({ navigation }) {
+  // const entities = useSelector((state) => state.entities);
+  // console.log(entities);
+
+  const sbpa = useSelector((state) => state.entities.openData.info.stmb.sbpa);
+
+  // Conditional rendering based on the availability of `sbpa`
+  if (!sbpa) {
+    // Render a loading indicator or placeholder content if `sbpa` is not available
+    return (
+      <View style={styles.loadingContainer}>
+        <Text>Loading...</Text> {/* Customize as needed */}
+      </View>
+    );
+  }
+
+  const rubrik = sbpa.curwin?.rubrik || "Default Title";
+
   // const dispatch = useDispatch();
   // const curwin = useSelector((state) => state.curwinReducer.curwin);
   // const loading = useSelector((state) => state.curwinReducer.loading);
@@ -164,7 +183,8 @@ function BffOoo({ navigation }) {
               >
                 <View style={styles.rubrikbar}>
                   {/* <RubrikFF>{curwin.rubrik}</RubrikFF> */}
-                  <RubrikFF>DETTA ÄR RUBRIK</RubrikFF>
+                  {/* <RubrikFF>DETTA ÄR RUBRIK</RubrikFF> */}
+                  <RubrikFF>{rubrik}</RubrikFF>
                 </View>
                 <View style={styles.textruta}>
                   <TextKortFF style={styles.textff}>
