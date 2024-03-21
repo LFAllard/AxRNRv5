@@ -21,21 +21,6 @@ import colors from "../konfig/colors";
 import { normalisera } from "../komponenter/NormaliseraStorlek";
 import { RubrikFF, TextKortFF, TextFullFF } from "../komponenter/AxelloText";
 import styles from "../komponenter/Stilar";
-// import Navigera from "../navigation/NavigeraMera";
-// import getCurwin from "../bffenAPIcurwin";
-// import bffenAPIcurwin from "../api/bffenAPIcurwin";
-
-// import React, { useEffect } from "react";
-// import { useSelector, useDispatch } from "react-redux";
-// import { StatusBar } from "expo-status-bar";
-// import { ScrollView, Pressable, View, SafeAreaView } from "react-native";
-// import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
-
-// import { fetchCurwin } from "../redux/actions"; // Adjust the path as per your structure
-// import colors from "../konfig/colors";
-// import { normalisera } from "../komponenter/NormaliseraStorlek";
-// import { RubrikFF, TextKortFF, TextFullFF } from "../komponenter/AxelloText";
-// import styles from "../komponenter/Stilar";
 
 function BffOoo({ navigation }) {
   // const entities = useSelector((state) => state.entities);
@@ -54,6 +39,33 @@ function BffOoo({ navigation }) {
   }
 
   const rubrik = sbpa.curwin?.rubrik || "Default Title";
+  const brodtext = sbpa.curwin?.brodtext || "Default Text";
+  const poolwm = sbpa.curwin?.poolwm || null;
+  const poolwmround = poolwm ? poolwm.toFixed(2) : null;
+  const poolbetant = sbpa.curwin?.poolbetant || null;
+  const repoffantal = sbpa.curwin?.repoffantal || null;
+  const repantal = sbpa.curwin?.repantal || null;
+  const bortfall = sbpa.curwin?.bortfall || null;
+
+  let repkvotprocstring = null;
+  if (
+    typeof repantal === "number" &&
+    typeof repoffantal === "number" &&
+    repoffantal !== 0
+  ) {
+    const repkvotproc = (repantal / repoffantal) * 100;
+    repkvotprocstring = repkvotproc.toFixed(2) + "%";
+  }
+
+  let bortfallskvotprocstring = null;
+  if (
+    typeof bortfall === "number" &&
+    typeof poolbetant === "number" &&
+    bortfall + poolbetant > 0
+  ) {
+    const bortfallskvotproc = (bortfall / (bortfall + poolbetant)) * 100;
+    bortfallskvotprocstring = bortfallskvotproc.toFixed(2) + "%";
+  }
 
   // const dispatch = useDispatch();
   // const curwin = useSelector((state) => state.curwinReducer.curwin);
@@ -187,13 +199,7 @@ function BffOoo({ navigation }) {
                   <RubrikFF>{rubrik}</RubrikFF>
                 </View>
                 <View style={styles.textruta}>
-                  <TextKortFF style={styles.textff}>
-                    The nicest word in the English language is holidays, said
-                    Dick, helping himself to a large spoonful of marmelade. Pass
-                    the toast, Anne. Mother, do you feel down-hearted to have us
-                    all tearing about the place again? Of course not, said his
-                    mother.
-                  </TextKortFF>
+                  <TextKortFF style={styles.textff}>{brodtext}</TextKortFF>
                 </View>
               </Pressable>
             </View>
@@ -222,22 +228,34 @@ function BffOoo({ navigation }) {
                 onPress={() => navigation.navigate("BffqhOoo")}
               >
                 <View style={styles.rubrikbar}>
-                  <TextFullFF>Score: 0.57</TextFullFF>
+                  <TextFullFF>Score: {poolwmround ?? "N/A"}</TextFullFF>
                 </View>
                 <View style={styles.rubrikbar}>
                   <TextFullFF>BAR CHART</TextFullFF>
                 </View>
                 <View style={styles.rubrikbar}>
-                  <TextFullFF>Number of ratings: 78</TextFullFF>
+                  <TextFullFF>
+                    Number of ratings: {poolbetant ?? "N/A"}
+                  </TextFullFF>
                 </View>
                 <View style={styles.rubrikbar}>
-                  <TextFullFF>Report requests: 54</TextFullFF>
+                  <TextFullFF>
+                    Report requests: {repoffantal ?? "N/A"}
+                  </TextFullFF>
                 </View>
                 <View style={styles.rubrikbar}>
-                  <TextFullFF>Reports: 6 (11%)</TextFullFF>
+                  <TextFullFF>
+                    Reports: {repantal ?? "N/A"}{" "}
+                    {repkvotprocstring ? `(${repkvotprocstring})` : ""}
+                  </TextFullFF>
                 </View>
                 <View style={styles.rubrikbar}>
-                  <TextFullFF>Non responders: 2 (4%)</TextFullFF>
+                  <TextFullFF>
+                    Non responders: {bortfall ?? "N/A"}{" "}
+                    {bortfallskvotprocstring
+                      ? `(${bortfallskvotprocstring})`
+                      : ""}
+                  </TextFullFF>
                 </View>
               </Pressable>
             </View>
