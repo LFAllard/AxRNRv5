@@ -38,14 +38,14 @@ function BffOoo({ navigation }) {
     );
   }
 
-  const rubrik = sbpa.curwin?.rubrik || "Default Title";
-  const brodtext = sbpa.curwin?.brodtext || "Default Text";
-  const poolwm = sbpa.curwin?.poolwm || null;
+  const rubrik = sbpa.curwin?.rubrik ?? null;
+  const brodtext = sbpa.curwin?.brodtext ?? null;
+  const poolwm = sbpa.curwin?.poolwm ?? null;
   const poolwmround = poolwm ? poolwm.toFixed(2) : null;
-  const poolbetant = sbpa.curwin?.poolbetant || null;
-  const repoffantal = sbpa.curwin?.repoffantal || null;
-  const repantal = sbpa.curwin?.repantal || null;
-  const bortfall = sbpa.curwin?.bortfall || null;
+  const poolbetant = sbpa.curwin?.poolbetant ?? null;
+  const repoffantal = sbpa.curwin?.repoffantal ?? null;
+  const repantal = sbpa.curwin?.repantal ?? null;
+  const bortfall = sbpa.curwin?.bortfall ?? null;
 
   let repkvotprocstring = null;
   if (
@@ -54,7 +54,7 @@ function BffOoo({ navigation }) {
     repoffantal !== 0
   ) {
     const repkvotproc = (repantal / repoffantal) * 100;
-    repkvotprocstring = repkvotproc.toFixed(2) + "%";
+    repkvotprocstring = repkvotproc.toFixed(0) + "%";
   }
 
   let bortfallskvotprocstring = null;
@@ -64,7 +64,7 @@ function BffOoo({ navigation }) {
     bortfall + poolbetant > 0
   ) {
     const bortfallskvotproc = (bortfall / (bortfall + poolbetant)) * 100;
-    bortfallskvotprocstring = bortfallskvotproc.toFixed(2) + "%";
+    bortfallskvotprocstring = bortfallskvotproc.toFixed(0) + "%";
   }
 
   // const dispatch = useDispatch();
